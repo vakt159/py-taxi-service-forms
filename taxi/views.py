@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django import forms
 from .models import Driver, Car, Manufacturer
 
 
@@ -54,41 +53,37 @@ class DriverDetailView(LoginRequiredMixin, generic.DetailView):
     queryset = Driver.objects.all().prefetch_related("cars__manufacturer")
 
 
-class CarCreateForm(LoginRequiredMixin, generic.CreateView):
+class CarCreateView(LoginRequiredMixin, generic.CreateView):
     model = Car
     fields = "__all__"
     success_url = reverse_lazy("taxi:car-list")
-    template_name = "taxi/car_form.html"
 
 
-class CarUpdateForm(LoginRequiredMixin, generic.UpdateView):
+class CarUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Car
     fields = "__all__"
     success_url = reverse_lazy("taxi:car-list")
-    template_name = "taxi/car_form.html"
 
 
-class CarDeleteForm(LoginRequiredMixin, generic.DeleteView):
+class CarDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Car
     success_url = reverse_lazy("taxi:car-list")
     template_name = "taxi/car_form_delete.html"
 
 
-class ManufacturerCreateForm(LoginRequiredMixin, generic.CreateView):
+class ManufacturerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Manufacturer
     fields = "__all__"
     success_url = reverse_lazy("taxi:manufacturer-list")
-    template_name = "taxi/manufacturer_form.html"
 
 
-class ManufacturerUpdateForm(LoginRequiredMixin, generic.UpdateView):
+class ManufacturerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Manufacturer
     fields = "__all__"
     success_url = reverse_lazy("taxi:manufacturer-list")
-    template_name = "taxi/manufacturer_form.html"
 
 
-class ManufacturerDeleteForm(LoginRequiredMixin, generic.DeleteView):
+class ManufacturerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Manufacturer
     success_url = reverse_lazy("taxi:manufacturer-list")
     template_name = "taxi/manufacturer_form_delete.html"
